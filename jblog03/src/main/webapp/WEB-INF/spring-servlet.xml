@@ -20,9 +20,18 @@
 	        <bean class="com.poscoict.mysite.security.AuthUserHandlerMethodArgumentResolver"/>     
 	    </mvc:argument-resolvers>
 	</mvc:annotation-driven> -->
+    <mvc:interceptors>
+    	<mvc:interceptor>
+	   		<mvc:mapping path="/user/auth"/>
+	   		<bean class="com.poscoict.jblog.interceptor.LoginInterceptor"/>
+	   	</mvc:interceptor>
+	   	<mvc:interceptor>
+	   		<mvc:mapping path="/user/logout"/>
+	   		<bean class="com.poscoict.jblog.interceptor.LogoutInterceptor"/>
+	   	</mvc:interceptor>
+   </mvc:interceptors>
     
     <!--
-    <mvc:interceptors>
 	   	<mvc:interceptor>
 	   		<mvc:mapping path="/user/auth"/>
 	   		<bean class="com.poscoict.mysite.security.LoginInteceptor"/>
@@ -42,7 +51,6 @@
 	   		<mvc:mapping path="/**"/>
 	   		<bean class="com.poscoict.mysite.security.SiteInterceptor"/>
 	   	</mvc:interceptor>	
-   </mvc:interceptors>
   -->
    	
    	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet의 위임(delegate) Handler -->

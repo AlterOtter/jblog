@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<insert id="insert" parameterType="categoryvo">
+		<![CDATA[
+		INSERT INTO category  VALUES (null,#{name},#{description},#{user_id});
+		]]>
+	</insert>
+	<select id="getcategory" parameterType="categoryvo" resultType="categoryvo">
+		<![CDATA[
+			select * from category where user_id=#{user_id}
+		]]>
+	</select>
+</mapper>
