@@ -13,13 +13,16 @@
 	<!-- <aop:aspectj-autoproxy />-->
 	<!-- Message Converter, Handler Mapping, Validator 생성 및 설정 -->
 
-	<mvc:annotation-driven></mvc:annotation-driven>
-	<!--
- 	<mvc:annotation-driven>
-	    <mvc:argument-resolvers>
-	        <bean class="com.poscoict.mysite.security.AuthUserHandlerMethodArgumentResolver"/>     
-	    </mvc:argument-resolvers>
-	</mvc:annotation-driven> -->
+	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet의 위임(delegate) Handler -->
+  	<mvc:default-servlet-handler/>
+
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.poscoict.arguementresolver.PrincipalArguementResolver"/>
+			<bean class="com.poscoict.arguementresolver.RefererResolver"/>
+		</mvc:argument-resolvers>	
+	</mvc:annotation-driven>
+	
     <mvc:interceptors>
     	<mvc:interceptor>
 	   		<mvc:mapping path="/user/auth"/>
@@ -29,8 +32,12 @@
 	   		<mvc:mapping path="/user/logout"/>
 	   		<bean class="com.poscoict.jblog.interceptor.LogoutInterceptor"/>
 	   	</mvc:interceptor>
+	   	<mvc:interceptor>
+	   		<mvc:mapping path="/blog/**"/>
+	   		<bean class="com.poscoict.jblog.interceptor.BlogInterceptor"/>
+	   	</mvc:interceptor>
    </mvc:interceptors>
-    
+  
     <!--
 	   	<mvc:interceptor>
 	   		<mvc:mapping path="/user/auth"/>
@@ -53,8 +60,7 @@
 	   	</mvc:interceptor>	
   -->
    	
-   	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet의 위임(delegate) Handler -->
-   <mvc:default-servlet-handler/>
+   
    
    <!--ViewResolver  -->
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

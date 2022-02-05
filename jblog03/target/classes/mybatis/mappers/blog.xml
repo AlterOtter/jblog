@@ -13,4 +13,14 @@
 			select * from blog where user_id=#{user_id}
 		]]>
 	</select>
+	<update id="updateInfo"  parameterType="blogvo" >
+		<![CDATA[
+			UPDATE `jblog`.`blog` SET `title` = #{title} WHERE (`user_id` = #{user_id});
+		]]>
+	</update>
+	<update id="updateImg"  parameterType="blogvo" >
+		<![CDATA[
+			UPDATE `jblog`.`blog` SET `imgs` = #{imgs} WHERE (`user_id` = #{user_id});
+		]]>
+	</update>
 </mapper>
