@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.poscoict.jblog.repository.PostRepository;
 import com.poscoict.jblog.vo.CategoryVo;
@@ -18,5 +19,10 @@ public class PostService {
 	public List<PostVo> getPost(List<CategoryVo> list){
 		
 		return prepository.getPost(list);
+	}
+
+	public boolean insert(PostVo postvo) {
+		
+		return prepository.insert(postvo);
 	}
 }

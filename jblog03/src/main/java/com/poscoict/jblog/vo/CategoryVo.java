@@ -7,11 +7,20 @@ public class CategoryVo {
 	private String name;
 	private String description;
 	private String user_id;
+	private	Integer postnum;
 	
 	public CategoryVo() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Integer getPostnum() {
+		return postnum;
+	}
+
+	public void setPostnum(Integer postnum) {
+		this.postnum = postnum;
+	}
+
 	public Integer getNo() {
 		return no;
 	}
@@ -43,6 +52,7 @@ public class CategoryVo {
 		this.name=builder.name;
 		this.description = builder.description;
 		this.user_id =builder.user_id;
+		this.postnum=builder.postnum;
     }
 
   
@@ -56,7 +66,7 @@ public class CategoryVo {
 		private String name;
 		private String description;
 		private String user_id;
-	    
+		private	Integer postnum;
         public Builder(){
           
         }
@@ -65,6 +75,10 @@ public class CategoryVo {
         
         public Builder no(Integer no){
             this.no = no;
+            return this;
+        }
+        public Builder postnum(Integer postnum){
+            this.postnum = postnum;
             return this;
         }
         public Builder name(String name){

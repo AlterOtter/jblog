@@ -19,4 +19,9 @@ public class PostRepository {
 		System.out.println(list.size());
 		return sqlSession.selectList("post.getpost", list);
 	}
+
+	public boolean insert(PostVo postvo) {
+		
+		return sqlSession.insert("post.insert", postvo)==1;
+	}
 }

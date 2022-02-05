@@ -10,7 +10,12 @@
 	</insert>
 	<select id="getcategory" parameterType="categoryvo" resultType="categoryvo">
 		<![CDATA[
-			select * from category where user_id=#{user_id}
+			select c.no as no,name,description,count(p.no) postnum from category c left join post p on c.no=p.category_no where c.user_id=#{user_id} group by c.no ;
 		]]>
 	</select>
+	<delete id="deleteCategory" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM `jblog`.`category` WHERE (`no` = #{no});
+		]]>
+	</delete>
 </mapper>

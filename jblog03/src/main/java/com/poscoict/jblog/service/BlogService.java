@@ -54,7 +54,7 @@ public class BlogService {
 	}
 
 	public boolean updateBlog(BlogVo vo,MultipartFile multipartFile) {
-		if(multipartFile!=null) {
+		if(multipartFile!=null && (multipartFile.getSize()!=0) ) {
 			System.out.println("UpdateImg");
 			String imgs=restore(multipartFile);
 			vo.setImgs(imgs);
@@ -68,11 +68,7 @@ public class BlogService {
 		return true;
 	}
 	
-	public boolean getcategory(UserVo vo, Model model) {
-		List<CategoryVo> clist = categoryservice.getCategory(CategoryVo.builder().user_id(vo.getUser_id()).build());
-		model.addAttribute("category",clist);
-		return true;
-	}
+	
 	
 	
 	//

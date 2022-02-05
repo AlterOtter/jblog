@@ -13,7 +13,11 @@ import com.poscoict.annotation.Auth;
 import com.poscoict.annotation.Principal;
 import com.poscoict.annotation.Referer;
 import com.poscoict.jblog.service.BlogService;
+import com.poscoict.jblog.service.CategoryService;
+import com.poscoict.jblog.service.PostService;
 import com.poscoict.jblog.vo.BlogVo;
+import com.poscoict.jblog.vo.CategoryVo;
+import com.poscoict.jblog.vo.PostVo;
 import com.poscoict.jblog.vo.UserVo;
 
 @Controller
@@ -22,6 +26,12 @@ public class BlogController {
 	
 	@Autowired
 	private BlogService bservice;
+	
+	@Autowired
+	private CategoryService cservice;
+	
+	@Autowired
+	private PostService pservice;
 	
 	@RequestMapping("/{id}")
 	public String main(@PathVariable(value = "id") String user_id,Model model) {
@@ -52,12 +62,43 @@ public class BlogController {
 	@Auth
 	@RequestMapping(value="/{id}/admin/category",method=RequestMethod.GET)
 	public String category(@Principal UserVo vo,Model model) {
-		bservice.getcategory(vo,model);
+		cservice.getcategory(vo,model);
 		return "blog/blog-admin-category";
 	}
+	
+	
+	//AJAX 필요
+	
+	@Auth
+	@RequestMapping(value="/{id}/admin/delete/category/{no}",method=RequestMethod.GET)
+	public String delete_category(@PathVariable(value="no")Integer category_no,@Referer String referer) {
+		cservice.deleteone(category_no);
+		return "redirect:"+referer;
+	}
+	
+	//AJAX 필요
+	
+		@Auth
+		@RequestMapping(value="/{id}/admin/insert/category",method=RequestMethod.POST)
+		public String insert_category(@Principal UserVo user_vo,CategoryVo vo,@Referer String referer) {
+			vo.setUser_id(user_vo.getUser_id());
+			cservice.insert(vo);
+			return "redirect:"+referer;
+		}
+	
+	
+	
 	@Auth
 	@RequestMapping(value="/{id}/admin/write",method=RequestMethod.GET)
-	public String write() {
+	public String get_write(@Principal UserVo vo,Model model) {
+		cservice.getcategory(vo,model);
 		return "blog/blog-admin-write";
+	}
+	
+	@Auth
+	@RequestMapping(value="/{id}/admin/write",method=RequestMethod.POST)
+	public String post_write(PostVo postvo,@Referer String referer) {
+		pservice.insert(postvo);
+		return "redirect:"+referer;
 	}
 }

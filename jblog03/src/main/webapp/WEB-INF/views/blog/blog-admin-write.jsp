@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1><a href="${blogMainPath}">${blogvo.title}</a></h1>
 			<c:import url="/WEB-INF/views/include/managmentMenu.jsp"/>
 		</div>
 		<div id="wrapper">
@@ -22,21 +22,26 @@
 					<li><a href="${blogMainPath}/admin/category">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
-				<form action="" method="post">
+				<form action="${blogMainPath}/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+				      			<select name="category_no">
+				      				<c:choose>
+										<c:when test="${0 ne category.size()}">
+											<c:forEach items="${category}" var="vo"  varStatus="status" >
+												<option value="${vo.no}">${vo.name}</option>
+											</c:forEach>
+										</c:when>
+									</c:choose>
 				      			</select>
 				      		</td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="contents"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>
