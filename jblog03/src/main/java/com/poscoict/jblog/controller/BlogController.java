@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poscoict.annotation.Auth;
@@ -78,15 +79,20 @@ public class BlogController {
 	
 	//AJAX 필요
 	
-		@Auth
-		@RequestMapping(value="/{id}/admin/insert/category",method=RequestMethod.POST)
-		public String insert_category(@Principal UserVo user_vo,CategoryVo vo,@Referer String referer) {
-			vo.setUser_id(user_vo.getUser_id());
-			cservice.insert(vo);
-			return "redirect:"+referer;
-		}
+	@Auth
+	@RequestMapping(value="/{id}/admin/insert/category",method=RequestMethod.POST)
+	public String insert_category(@Principal UserVo user_vo,CategoryVo vo,@Referer String referer) {
+		vo.setUser_id(user_vo.getUser_id());
+		cservice.insert(vo);
+		return "redirect:"+referer;
+	}
 	
-	
+	//글읽기
+	@ResponseBody
+	@RequestMapping(value="/{id}/{post}",method=RequestMethod.GET,produces = "text/html; charset=utf-8")
+	public String read_post(@PathVariable(value="post") Integer post) {
+		return pservice.readpost(post);
+	}
 	
 	@Auth
 	@RequestMapping(value="/{id}/admin/write",method=RequestMethod.GET)
@@ -101,4 +107,7 @@ public class BlogController {
 		pservice.insert(postvo);
 		return "redirect:"+referer;
 	}
+	
+	
+	
 }

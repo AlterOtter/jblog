@@ -24,4 +24,9 @@ public class PostRepository {
 		
 		return sqlSession.insert("post.insert", postvo)==1;
 	}
+
+	public PostVo readpost(Integer post) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("post.readpost",post);
+	}
 }

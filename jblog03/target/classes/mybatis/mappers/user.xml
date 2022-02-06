@@ -14,5 +14,10 @@
 		   into user
 		values (#{user_id}, #{name}, #{password})
 		]]>
-	</insert>			
+	</insert>
+	<select id="checkid" parameterType="String" resultType="uservo">
+		<![CDATA[
+		select * from user where user_id=#{user_id};
+		]]>
+	</select>			
 </mapper>

@@ -18,4 +18,9 @@
 			INSERT INTO post  VALUES (null,#{title},#{contents},now(),#{category_no});
 		]]>
 	</insert>
+	<select id="readpost" parameterType="Integer" resultType="postvo">
+		<![CDATA[
+			select * from post where no=#{post}
+		]]>
+	</select>
 </mapper>

@@ -1,10 +1,15 @@
 package com.poscoict.jblog.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poscoict.jblog.service.UserService;
 import com.poscoict.jblog.vo.UserVo;
@@ -40,9 +45,17 @@ public class UserController {
 		}
 	}
 	
+	
 	@RequestMapping(value= {"/joinsucess"})
 	public String join_success() {
 		return "user/joinsuccess";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/check")
+	public String check_id(@RequestParam(value="user_id")String user_id) {
+		System.out.println("user_id");
+		return String.valueOf(uservice.checkid(user_id));
 	}
 	
 }

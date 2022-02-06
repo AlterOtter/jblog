@@ -1,5 +1,8 @@
 package com.poscoict.jblog.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +47,18 @@ public class UserService {
 	public UserVo login(UserVo vo) {
 		
 		return urepository.login(vo);
+	}
+
+	public boolean checkid(String user_id) {
+		
+		boolean result=urepository.check_id(user_id);
+		
+		if(result) {
+			return false;
+		}
+		
+		
+		
+		return true;
 	}
 }

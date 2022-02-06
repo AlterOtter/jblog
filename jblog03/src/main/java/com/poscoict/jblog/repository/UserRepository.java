@@ -28,4 +28,8 @@ public class UserRepository {
 		return sqlSession.selectOne("user.login",vo);
 	}
 	
+	public boolean check_id(String user_id) {
+		return sqlSession.selectOne("user.checkid",user_id)!=null;
+	}
+	
 }

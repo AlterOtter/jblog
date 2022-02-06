@@ -5,9 +5,28 @@
 <!doctype html>
 <html>
 <head>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script type="text/javascript" >
+	var request = new XMLHttpRequest();
+	function searchFunction(e) {
+		//encodeURIComponent(nameValue) 한글 보낼시 깨짐방지
+		request.open("GET",'${blogMainPath}'+"/"+e,true);
+		request.onreadystatechange=searchProccess;
+		request.send(null);
+	}
+	function searchProccess() {
+		var p = document.getElementById("blog-main-content");
+		if(request.readyState==4 && request.status ==200){
+			var object = eval('('+request.responseText+')');
+			//p.val(object.contents);
+			$('#blog-main-content').text(object.contents.replaceAll(/\n/g, '<br>')); 
+			console.log(object.contents);
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="container">
@@ -20,7 +39,7 @@
 				<div class="blog-content">
 					<h4>Spring Camp 2016 참여기</h4>
 					<% pageContext.setAttribute("newLine", "\n"); %>
-					<p>
+					<p id="blog-main-content" >
 					<c:choose>
 						<c:when test="${0 ne blogInfo.post.size()}">
 							${fn:replace(blogInfo.post.get(0).contents,newLine,"<br/>")}
@@ -30,7 +49,7 @@
 				</div>
 				<ul class="blog-list">
 					<c:forEach items="${blogInfo.post}" var="vo"  varStatus="status" >
-						<li><a href="">${vo.title}</a> <span>${vo.reg_date}</span></li>
+						<li onclick="searchFunction(${vo.no});">${vo.title}<span>${vo.reg_date}</span></li>
 					</c:forEach>
 				</ul>
 			</div>
