@@ -30,7 +30,21 @@ public class CategoryService {
 		return true;
 	}
 
-	public boolean deleteone(Integer no) {
-		return 	crepository.deleteCategory(no);
+	public boolean check_before_delete(CategoryVo vo){
+		if(vo.getUser_id()==null||vo.getUser_id().isEmpty()) {
+			return false;
+		}
+		
+		return crepository.getCategory(vo).size() >=2;
+	}
+	
+	
+	public boolean deleteone(CategoryVo vo) {
+		if(!check_before_delete(vo)) {
+			return false;
+		}
+		
+		
+		return 	crepository.deleteCategory(vo);
 	}
 }

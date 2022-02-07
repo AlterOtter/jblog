@@ -72,8 +72,8 @@ public class BlogController {
 	
 	@Auth
 	@RequestMapping(value="/{id}/admin/delete/category/{no}",method=RequestMethod.GET)
-	public String delete_category(@PathVariable(value="no")Integer category_no,@Referer String referer) {
-		cservice.deleteone(category_no);
+	public String delete_category(@PathVariable(value="no")Integer category_no,@Principal UserVo vo,@Referer String referer) {
+		cservice.deleteone(CategoryVo.builder().no(category_no).user_id(vo.getUser_id()).build());
 		return "redirect:"+referer;
 	}
 	
@@ -87,12 +87,6 @@ public class BlogController {
 		return "redirect:"+referer;
 	}
 	
-	//글읽기
-	@ResponseBody
-	@RequestMapping(value="/{id}/{post}",method=RequestMethod.GET,produces = "text/html; charset=utf-8")
-	public String read_post(@PathVariable(value="post") Integer post) {
-		return pservice.readpost(post);
-	}
 	
 	@Auth
 	@RequestMapping(value="/{id}/admin/write",method=RequestMethod.GET)
@@ -108,6 +102,20 @@ public class BlogController {
 		return "redirect:"+referer;
 	}
 	
+	//글읽기
+	@ResponseBody
+	@RequestMapping(value="/{id}/{category}/{post}",method=RequestMethod.GET,produces = "text/html; charset=utf-8")
+	public String read_post(@PathVariable(value="post") Integer post) {
+		return pservice.readpost(post);
+	}
+	
+	//글읽기
+	@ResponseBody
+	@RequestMapping(value="/{id}/{category}",method=RequestMethod.GET,produces = "text/html; charset=utf-8")
+	public String category_to_postlist(@PathVariable(value="category") Integer category) {
+		System.out.println("오잉");
+		return pservice.readpostlist(category);
+	}
 	
 	
 }

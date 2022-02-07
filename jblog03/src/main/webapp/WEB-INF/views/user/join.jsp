@@ -32,7 +32,7 @@
 				<label class="l-float">서비스 약관에 동의합니다.</label>
 			</fieldset>
 
-			<input type="submit" value="가입하기">
+			<input id="join_submit" type="submit" disabled=false value="가입하기">
 
 		</form>
 	</div>
@@ -51,15 +51,21 @@
                 url : "http://localhost:8080/jblog03/user/check",      // 컨트롤러에서 대기중인 URL 주소이다.
                 data : params,            // Json 형식의 데이터이다.
                 success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                    // 응답코드 > 0000
-                    alert(res);
+					if(res=='true'){
+						$('#join_submit').attr("disabled",false);
+					}else if(res=='false'){
+						$('#join_submit').attr("disabled",true);
+					}
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                     alert("통신 실패. "+textStatus+XMLHttpRequest)
                 }
             });
         });
-            
+         
+     $("#blog-id").change(function() {
+    	 $('#join_submit').attr("disabled",true);
+	})
 	</script>
 
 </html>

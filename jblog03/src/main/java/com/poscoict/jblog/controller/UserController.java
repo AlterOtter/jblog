@@ -54,7 +54,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/check")
 	public String check_id(@RequestParam(value="user_id")String user_id) {
-		System.out.println("user_id");
 		return String.valueOf(uservice.checkid(user_id));
 	}
 	

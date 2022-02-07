@@ -55,7 +55,6 @@ public class BlogService {
 
 	public boolean updateBlog(BlogVo vo,MultipartFile multipartFile) {
 		if(multipartFile!=null && (multipartFile.getSize()!=0) ) {
-			System.out.println("UpdateImg");
 			String imgs=restore(multipartFile);
 			vo.setImgs(imgs);
 			brepository.updateImg(vo);

@@ -35,7 +35,6 @@ public class PostService {
 			if(vo!=null)
 				result=getJSON(vo);
 	
-		System.out.println(result);
 		return result;
 	}
 	
@@ -50,6 +49,28 @@ public class PostService {
 			return "false";
 		}
 		
+	}
+
+	public String getJSON(List<PostVo> vo) {
+		ObjectMapper objmapper= new ObjectMapper();
+	
+		try {
+			return objmapper.writeValueAsString(vo);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "false";
+		}
+		
+	}
+	
+	public String readpostlist(Integer category) {
+		List<PostVo> vo=prepository.readpostlist(category);
+		String result="false";
+		
+			if(vo!=null)
+				result=getJSON(vo);
+	
+		return result;
 	}
 	
 	

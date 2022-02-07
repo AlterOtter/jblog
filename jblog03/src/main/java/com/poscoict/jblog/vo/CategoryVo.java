@@ -46,6 +46,12 @@ public class CategoryVo {
 		this.user_id = user_id;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return "[CategoryVo] [ [no] : "+no+", [name] : "+name+" [description] : "+description+" [postnum] : "+postnum+" [user_id] "+user_id+" ]";
+	}
+	
 	
 	private CategoryVo(Builder builder) {
 		this.no = builder.no;

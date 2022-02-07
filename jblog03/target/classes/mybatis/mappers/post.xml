@@ -23,4 +23,10 @@
 			select * from post where no=#{post}
 		]]>
 	</select>
+	<select id="readpostlist" parameterType="Integer" resultType="postvo">
+		<![CDATA[
+			select * from post where category_no=#{category_no}
+		]]>
+	</select>
+	
 </mapper>

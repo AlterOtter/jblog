@@ -28,7 +28,8 @@ public class CategoryRepository {
 		return 	sqlSession.selectList("category.getcategory",vo);
 	}
 	
-	public boolean deleteCategory(Integer no) {
+	
+	public boolean deleteCategory(CategoryVo no) {
 		return 	sqlSession.delete("category.deleteCategory",no)==1;
 	}
 	

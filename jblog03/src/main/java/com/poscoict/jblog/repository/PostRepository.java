@@ -29,4 +29,9 @@ public class PostRepository {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("post.readpost",post);
 	}
+
+	public List<PostVo> readpostlist(Integer category) {
+		
+		return sqlSession.selectList("post.readpostlist",category);
+	}
 }
