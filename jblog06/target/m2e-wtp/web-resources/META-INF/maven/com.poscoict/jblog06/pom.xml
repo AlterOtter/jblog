@@ -7,7 +7,6 @@
   </parent>
   <artifactId>jblog06</artifactId>
   <packaging>war</packaging>
-  
   <dependencies>
 	  		<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -64,6 +63,10 @@
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
 				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
 			</dependency>
   </dependencies>
   
